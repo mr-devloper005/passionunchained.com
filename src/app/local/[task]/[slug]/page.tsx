@@ -149,7 +149,7 @@ export default function LocalPostDetailPage() {
           <div className="mx-auto w-full max-w-4xl space-y-6">
             <h1 className="text-4xl font-semibold leading-tight text-foreground">{post.title}</h1>
             {images[0] ? (
-              <div className="relative aspect-[16/9] w-full overflow-hidden rounded-3xl border border-border bg-muted">
+              <div className="relative aspect-[16/9] w-full overflow-hidden rounded-lg border border-border bg-muted">
                 <ContentImage src={images[0]} alt={post.title} fill className="object-cover" intrinsicWidth={1600} intrinsicHeight={900} />
               </div>
             ) : null}

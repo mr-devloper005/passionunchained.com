@@ -9,7 +9,7 @@ export const siteContent = {
   },
   hero: {
     badge: 'Essays and long-form writing',
-    title: ['Read reflective stories, essays, and deep editorial publishing.'],
+    title: ['Ideas worth your full attention.', 'Stories, essays, and reporting in a bold editorial layout.'],
     description:
       'A long-form editorial platform for essays, stories, and idea-driven article publishing.',
     primaryCta: {
@@ -29,48 +29,48 @@ export const siteContent = {
   },
   home: {
     metadata: {
-      title: 'Stories, visuals, and discoverable content',
+      title: 'Editorial articles and long-form reading',
       description:
-        'Explore articles, images, listings, and curated posts through a cleaner reading-first experience.',
-      openGraphTitle: 'Stories, visuals, and discoverable content',
+        'Essays, reporting, and guides in a bold editorial layout—built for readers who want depth, clarity, and a premium newsroom feel.',
+      openGraphTitle: 'Editorial articles and long-form reading',
       openGraphDescription:
-        'Discover articles, visual posts, and connected content through a calmer reading-first experience.',
-      keywords: ['story platform', 'article site', 'visual content', 'content discovery'],
+        'Discover thoughtful articles, features, and analysis in a publication-style reading experience.',
+      keywords: ['articles', 'editorial', 'essays', 'long-form', 'magazine', 'newsroom'],
     },
-    introBadge: 'About the platform',
-    introTitle: 'Built for reading, browsing, and connecting different kinds of content.',
+    introBadge: 'About the publication',
+    introTitle: 'A modern editorial desk for stories that deserve space.',
     introParagraphs: [
-      'This site brings together article-style reading, visual browsing, and structured discovery so visitors can move naturally between different content types.',
-      'Instead of separating stories, visuals, and supporting resources into disconnected surfaces, the platform keeps them connected in one place with consistent navigation and easier exploration.',
-      'Whether someone starts with a story, an image-led post, a listing, or a resource page, they can keep discovering related content without friction.',
+      'Every layout choice here prioritizes reading: strong headlines, generous spacing, and typography tuned for long sessions.',
+      'Browse the latest coverage, save what matters, and return when you are ready for the next piece.',
+      'The experience stays fast and accessible—without looking like a generic template.',
     ],
     sideBadge: 'At a glance',
     sidePoints: [
-      'Reading-first homepage with stronger emphasis on stories and imagery.',
-      'Connected sections for articles, visuals, listings, and supporting resources.',
-      'Cleaner browsing rhythm designed to make exploration feel easier.',
-      'Lightweight interactions that keep the experience fast and readable.',
+      'Magazine-style hero with cover story and latest grid.',
+      'Royal blue, sunflower yellow, and accent pink motifs.',
+      'Rounded pill buttons and crisp sans hierarchy.',
+      'Mobile-first navigation and touch-friendly cards.',
     ],
     primaryLink: {
       label: 'Browse articles',
       href: '/articles',
     },
     secondaryLink: {
-      label: 'See visuals',
-      href: '/images',
+      label: 'Search the archive',
+      href: '/search',
     },
   },
   cta: {
-    badge: 'Start exploring',
-    title: 'Explore articles, visuals, and resources through one connected experience.',
+    badge: 'Join readers',
+    title: 'Save articles and build your own reading list.',
     description:
-      'Move between articles, image-led posts, listings, and resources through one clearer and more connected visual system.',
+      'Create a free account to bookmark stories, sync preferences on this device, and support independent editorial publishing.',
     primaryCta: {
-      label: 'Get Started Free',
+      label: 'Create your account',
       href: '/register',
     },
     secondaryCta: {
-      label: 'Contact Sales',
+      label: 'Contact the desk',
       href: '/contact',
     },
   },
@@ -130,13 +130,13 @@ export const taskIntroCopy: Record<
     title: 'Articles, stories, and long-form reading',
     paragraphs: [
       'This section is built for stories, explainers, guides, and long-form reading across topics and interests.',
-      'Articles connect with listings, images, resources, and other content types so deeper reading can lead naturally into related discovery.',
-      'Use this section to browse thoughtful posts, revisit useful writing, and move into supporting content when you want more context.',
+      'Use category filters to jump between themes, or search the archive when you know what you are looking for.',
+      'Save pieces you love (when signed in) and revisit them anytime on this device.',
     ],
     links: [
-      { label: 'Explore listings', href: '/listings' },
-      { label: 'Open images', href: '/images' },
-      { label: 'Browse resources', href: '/pdf' },
+      { label: 'Search articles', href: '/search' },
+      { label: 'About the publication', href: '/about' },
+      { label: 'Join free', href: '/register' },
     ],
   },
   classified: {
