@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { Bookmark, Building2, FileText, Image as ImageIcon, Sparkles } from 'lucide-react'
 import { NavbarShell } from '@/components/shared/navbar-shell'
 import { Footer } from '@/components/shared/footer'
+import { RegisterForm } from '@/components/shared/auth-forms'
 import { getFactoryState } from '@/design/factory/get-factory-state'
 import { getProductKind } from '@/design/factory/get-product-kind'
 import { REGISTER_PAGE_OVERRIDE_ENABLED, RegisterPageOverride } from '@/overrides/register-page'
@@ -21,14 +22,14 @@ function getRegisterConfig(kind: ReturnType<typeof getProductKind>) {
   }
   if (kind === 'editorial') {
     return {
-      shell: 'bg-[#fbf6ee] text-[#241711]',
-      panel: 'border border-[#dcc8b7] bg-[#fffdfa]',
-      side: 'border border-[#e6d6c8] bg-[#fff4e8]',
-      muted: 'text-[#6e5547]',
-      action: 'bg-[#241711] text-[#fff1e2] hover:bg-[#3a241b]',
+      shell: 'bg-[linear-gradient(180deg,#ffffff_0%,#f1f5f9_100%)] text-slate-900',
+      panel: 'border border-slate-200 bg-white shadow-[0_24px_70px_rgba(15,23,42,0.06)]',
+      side: 'border border-slate-200 bg-[#eff6ff]',
+      muted: 'text-slate-600',
+      action: 'bg-[#0f172a] text-white hover:bg-slate-800',
       icon: FileText,
-      title: 'Start your contributor workspace',
-      body: 'Create a profile for essays, issue drafts, editorial review, and publication scheduling.',
+      title: 'Join the publication',
+      body: 'Create a free account to save articles, manage your profile, and comment when features are enabled.',
     }
   }
   if (kind === 'visual') {
@@ -70,26 +71,20 @@ export default function RegisterPage() {
       <NavbarShell />
       <main className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <section className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-stretch">
-          <div className={`rounded-[2rem] p-8 ${config.side}`}>
+          <div className={`rounded-lg p-8 ${config.side}`}>
             <Icon className="h-8 w-8" />
             <h1 className="mt-5 text-4xl font-semibold tracking-[-0.05em]">{config.title}</h1>
             <p className={`mt-5 text-sm leading-8 ${config.muted}`}>{config.body}</p>
             <div className="mt-8 grid gap-4">
               {['Different onboarding per product family', 'No repeated one-size-fits-all shell', 'Profile, publishing, and discovery aligned'].map((item) => (
-                <div key={item} className="rounded-[1.5rem] border border-current/10 px-4 py-4 text-sm">{item}</div>
+                <div key={item} className="rounded-md border border-current/10 px-4 py-4 text-sm">{item}</div>
               ))}
             </div>
           </div>
 
-          <div className={`rounded-[2rem] p-8 ${config.panel}`}>
+          <div className={`rounded-lg p-8 ${config.panel}`}>
             <p className="text-xs font-semibold uppercase tracking-[0.24em] opacity-70">Create account</p>
-            <form className="mt-6 grid gap-4">
-              <input className="h-12 rounded-xl border border-current/10 bg-transparent px-4 text-sm" placeholder="Full name" />
-              <input className="h-12 rounded-xl border border-current/10 bg-transparent px-4 text-sm" placeholder="Email address" />
-              <input className="h-12 rounded-xl border border-current/10 bg-transparent px-4 text-sm" placeholder="Password" type="password" />
-              <input className="h-12 rounded-xl border border-current/10 bg-transparent px-4 text-sm" placeholder="What are you creating or publishing?" />
-              <button type="submit" className={`inline-flex h-12 items-center justify-center rounded-full px-6 text-sm font-semibold ${config.action}`}>Create account</button>
-            </form>
+            <RegisterForm productKind={productKind} />
             <div className={`mt-6 flex items-center justify-between text-sm ${config.muted}`}>
               <span>Already have an account?</span>
               <Link href="/login" className="inline-flex items-center gap-2 font-semibold hover:underline">

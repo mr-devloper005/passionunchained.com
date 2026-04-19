@@ -76,7 +76,7 @@ export default async function SearchPage({
       description={
         query
           ? `Results for "${query}"`
-          : "Browse the latest posts across every task."
+          : "Search essays, guides, and reporting across the publication."
       }
       actions={
         <form action="/search" className="flex w-full gap-2 sm:w-auto">
@@ -88,11 +88,11 @@ export default async function SearchPage({
             <Input
               name="q"
               defaultValue={query}
-              placeholder="Search across tasks..."
-              className="h-11 pl-9"
+              placeholder="Search articles, topics, authors…"
+              className="h-11 rounded-md border-slate-200 pl-9"
             />
           </div>
-          <Button type="submit" className="h-11">
+          <Button type="submit" className="h-11 rounded-md bg-[#0f172a] px-6 font-semibold hover:bg-slate-800">
             Search
           </Button>
         </form>
@@ -103,7 +103,7 @@ export default async function SearchPage({
           {results.map((post) => {
             const task = getPostTaskKey(post);
             const href = task ? buildPostUrl(task, post.slug) : `/posts/${post.slug}`;
-            return <TaskPostCard key={post.id} post={post} href={href} />;
+            return <TaskPostCard key={post.id} post={post} href={href} taskKey={task ?? 'article'} />;
           })}
         </div>
       ) : (
