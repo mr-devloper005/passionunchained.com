@@ -286,7 +286,7 @@ export default function CreateTaskPage() {
           </div>
         </div>
 
-        <div className="rounded-3xl border border-border bg-card p-8 shadow-sm">
+        <div className="rounded-lg border border-border bg-card p-8 shadow-sm">
           <div className="flex flex-wrap gap-2">
             <Badge variant="secondary">{taskConfig.label}</Badge>
             <Badge variant="outline">Local-only</Badge>
