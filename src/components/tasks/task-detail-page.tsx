@@ -1,12 +1,13 @@
 import { ContentImage } from "@/components/shared/content-image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { MapPin, Globe, Phone, Tag, Mail } from "lucide-react";
+import { MapPin, Globe, Phone, Tag, Mail, MoreHorizontal, ThumbsUp } from "lucide-react";
 import { NavbarShell } from "@/components/shared/navbar-shell";
 import { Footer } from "@/components/shared/footer";
 import { TaskPostCard } from "@/components/shared/task-post-card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { buildPostUrl, fetchTaskPostBySlug, fetchTaskPosts } from "@/lib/task-data";
 import { SITE_CONFIG, getTaskConfig, type TaskKey } from "@/lib/site-config";
 import type { SitePost } from "@/lib/site-connector";
@@ -19,6 +20,7 @@ import { getFactoryState } from "@/design/factory/get-factory-state";
 import { getProductKind } from "@/design/factory/get-product-kind";
 import { DirectoryTaskDetailPage } from "@/design/products/directory/task-detail-page";
 import { TASK_DETAIL_PAGE_OVERRIDE_ENABLED, TaskDetailPageOverride } from "@/overrides/task-detail-page";
+import { TaskDetailInteractions } from "@/components/tasks/task-detail-interactions";
 
 type PostContent = {
   category?: string;
@@ -248,7 +250,7 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className={cn("min-h-screen", isArticle ? "bg-muted/20" : "bg-background")}>
       <NavbarShell />
       <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <SchemaJsonLd data={schemaPayload} />
@@ -267,44 +269,94 @@ export async function TaskDetailPage({ task, slug }: { task: TaskKey; slug: stri
         >
           <div className={cn(isClassified ? "space-y-8" : "")}>
             {isArticle ? (
-              <div className="mx-auto w-full max-w-4xl space-y-6">
-                <h1 className="text-4xl font-semibold leading-tight text-foreground">
-                  {post.title}
-                </h1>
-                <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
-                  <span>By {articleAuthor}</span>
-                  {articleDate ? <span>{articleDate}</span> : null}
-                  <Badge variant="secondary" className="inline-flex items-center gap-1">
-                    <Tag className="h-3.5 w-3.5" />
-                    {category}
-                  </Badge>
-                </div>
-                {postTags.length ? (
-                  <div className="flex flex-wrap gap-2">
-                    {postTags.map((tag) => (
-                      <Badge key={tag} variant="outline">
-                        {tag}
-                      </Badge>
-                    ))}
+              <div className="mx-auto w-full max-w-4xl space-y-8">
+                <header className="space-y-5 text-center">
+                  <div className="flex flex-wrap items-center justify-center gap-2 text-sm text-muted-foreground">
+                    <Badge variant="secondary" className="inline-flex items-center gap-1">
+                      <Tag className="h-3.5 w-3.5" />
+                      {category}
+                    </Badge>
                   </div>
-                ) : null}
-                {articleSummary ? (
-                  <p className="text-base leading-7 text-muted-foreground">{articleSummary}</p>
-                ) : null}
-                {images[0] ? (
-                  <div className="relative aspect-[16/9] w-full overflow-hidden rounded-lg border border-border bg-muted">
-                    <ContentImage
-                      src={images[0]}
-                      alt={`${post.title} featured image`}
-                      fill
-                      className="object-cover"
-                      intrinsicWidth={1600}
-                      intrinsicHeight={900}
+                  <h1 className="text-balance text-4xl font-semibold leading-tight text-foreground sm:text-5xl">
+                    {post.title}
+                  </h1>
+                  <div className="flex flex-wrap items-center justify-center gap-3 text-sm text-muted-foreground">
+                    <div className="flex items-center gap-2">
+                      <Avatar className="h-8 w-8">
+                        <AvatarFallback className="text-xs font-medium">
+                          {articleAuthor.slice(0, 2).toUpperCase()}
+                        </AvatarFallback>
+                      </Avatar>
+                      <span className="text-foreground/90">{articleAuthor}</span>
+                    </div>
+                                      </div>
+                  {postTags.length ? (
+                    <div className="flex flex-wrap justify-center gap-2">
+                      {postTags.map((tag) => (
+                        <Badge key={tag} variant="outline" className="rounded-full px-3">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+                  ) : null}
+                </header>
+
+                <article className="relative rounded-2xl border border-border bg-card shadow-sm">
+                  <div className="flex items-start justify-between gap-4 p-6 sm:p-8">
+                    <div className="space-y-2">
+                      {articleSummary ? (
+                        <p className="text-base leading-7 text-muted-foreground sm:text-[1.05rem]">
+                          {articleSummary}
+                        </p>
+                      ) : (
+                        <p className="text-base leading-7 text-muted-foreground">
+                          {description}
+                        </p>
+                      )}
+                    </div>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-9 w-9 rounded-full text-muted-foreground"
+                      aria-label="More actions"
+                    >
+                      <MoreHorizontal className="h-5 w-5" />
+                    </Button>
+                  </div>
+
+                  {images[0] ? (
+                    <div className="px-6 pb-6 sm:px-8 sm:pb-8">
+                      <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl border border-border bg-muted">
+                        <ContentImage
+                          src={images[0]}
+                          alt={`${post.title} featured image`}
+                          fill
+                          className="object-cover"
+                          intrinsicWidth={1600}
+                          intrinsicHeight={900}
+                        />
+                      </div>
+                    </div>
+                  ) : null}
+
+                  <div className="px-6 pb-8 sm:px-8">
+                    <RichContent
+                      html={articleHtml}
+                      className="mx-auto max-w-none leading-8 prose-p:my-6 prose-h2:my-8 prose-h3:my-6 prose-ul:my-6"
                     />
                   </div>
-                ) : null}
-                <RichContent html={articleHtml} className="leading-8 prose-p:my-6 prose-h2:my-8 prose-h3:my-6 prose-ul:my-6" />
-                <ArticleComments slug={post.slug} />
+
+                  <div className="border-t border-border px-6 py-6 sm:px-8">
+                    <ArticleComments slug={post.slug} />
+                    <TaskDetailInteractions 
+                      slug={post.slug} 
+                      author={articleAuthor}
+                      className="mt-6 flex justify-end"
+                      showFollow={false}
+                      showLike={true}
+                    />
+                  </div>
+                </article>
               </div>
             ) : null}
 
