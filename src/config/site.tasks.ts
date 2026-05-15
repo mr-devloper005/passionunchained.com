@@ -2,7 +2,7 @@ export const siteTaskDefinitions = [
   {
     key: 'listing',
     label: 'Business Listing',
-    route: '/listing',
+    route: '/listings',
     description: 'Verified businesses and services.',
     contentType: 'listing',
     enabled: false,
@@ -10,15 +10,15 @@ export const siteTaskDefinitions = [
   {
     key: 'classified',
     label: 'Classified',
-    route: '/classified',
+    route: '/classifieds',
     description: 'Local offers, jobs, and deals.',
     contentType: 'classified',
     enabled: false,
   },
-  {
+{
   key: 'article',
   label: 'Article',
-  route: '/article',
+  route: '/articles',
   description: 'Curated article content.',
   contentType: 'article',
   enabled: true,
@@ -26,7 +26,7 @@ export const siteTaskDefinitions = [
   {
     key: 'image',
     label: 'Image',
-    route: '/image',
+    route: '/images',
     description: 'Galleries and media-first posts.',
     contentType: 'image',
     enabled: false,
@@ -74,10 +74,10 @@ export const siteTaskDefinitions = [
 ] as const
 
 export const siteTaskViews = {
-  listing: '/listing',
-  classified: '/classified',
-  article: '/article',
-  image: '/image',
+  listing: '/listings',
+  classified: '/classifieds',
+  article: '/articles',
+  image: '/images',
   profile: '/profile',
   social: '/community',
   sbm: '/sbm',
