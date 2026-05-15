@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 import { TaskPostCard } from "@/components/shared/task-post-card";
-import { buildPostUrl } from "@/lib/task-data";
+import { buildPostUrl, getPostTaskKey } from "@/lib/task-data";
 import { normalizeCategory, isValidCategory } from "@/lib/categories";
 import type { TaskKey } from "@/lib/site-config";
 import type { SitePost } from "@/lib/site-connector";
@@ -64,10 +64,12 @@ export function TaskListClient({ task, initialPosts, category }: Props) {
     <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {merged.map((post) => {
         const localOnly = (post as any).localOnly;
+        const resolvedTask = getPostTaskKey(post) || task;
+        const cardTask = task === "article" ? "article" : resolvedTask;
         const href = localOnly
           ? `/local/${task}/${post.slug}`
-          : buildPostUrl(task, post.slug);
-        return <TaskPostCard key={post.id} post={post} href={href} taskKey={task} />;
+          : buildPostUrl(resolvedTask, post.slug);
+        return <TaskPostCard key={post.id} post={post} href={href} taskKey={cardTask} />;
       })}
     </div>
   );
