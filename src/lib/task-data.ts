@@ -32,7 +32,7 @@ export const fetchTaskPosts = async (
 ) => {
   const allowMockFallback = options?.allowMockFallback ?? process.env.NEXT_PUBLIC_USE_MOCK_CONTENT === "true";
   const type = getTaskContentType(task);
-  const pickTaskPosts = (feed: SiteFeed<SitePost> | null) => {
+  const pickTaskPosts = (feed: SiteFeed<SitePost> | null, relaxedForArticle = false) => {
     if (!feed) return [];
     return feed.posts
       .filter((post) => {
@@ -41,7 +41,12 @@ export const fetchTaskPosts = async (
             ? String((post as any).status).toUpperCase()
             : "";
         if (status && status !== "PUBLISHED") return false;
-        if (getPostType(post) !== type) return false;
+        const postType = getPostType(post);
+        if (relaxedForArticle && task === "article") {
+          if (postType === "comment") return false;
+        } else if (postType !== type) {
+          return false;
+        }
         const content = post.content && typeof post.content === "object" ? post.content : {};
         const category = typeof (content as any).category === "string" ? (content as any).category : "";
         return !category || isValidCategory(category);
@@ -52,12 +57,15 @@ export const fetchTaskPosts = async (
   try {
     const cachedFeed = await fetchSiteFeed(limit * 6, { fresh: options?.fresh });
     const cachedPosts = pickTaskPosts(cachedFeed);
+    const cachedRelaxedPosts = task === "article" && !cachedPosts.length ? pickTaskPosts(cachedFeed, true) : [];
     if (cachedPosts.length) return cachedPosts;
+    if (cachedRelaxedPosts.length) return cachedRelaxedPosts;
 
     const freshFeed = await fetchSiteFeed(limit * 6, { fresh: true });
     const filtered = pickTaskPosts(freshFeed);
+    const relaxedFiltered = task === "article" && !filtered.length ? pickTaskPosts(freshFeed, true) : [];
     return filtered.length || !allowMockFallback
-      ? filtered
+      ? (filtered.length ? filtered : relaxedFiltered)
       : getMockPostsForTask(task).slice(0, limit);
   } catch {
     return allowMockFallback ? getMockPostsForTask(task).slice(0, limit) : [];

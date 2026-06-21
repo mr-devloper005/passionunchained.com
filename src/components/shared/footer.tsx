@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { FileText, Building2, LayoutGrid, Tag, Github, Twitter, Linkedin, Image as ImageIcon, User, ArrowRight, Sparkles } from 'lucide-react'
+import { FileText, Building2, LayoutGrid, Tag, Image as ImageIcon, User, ArrowRight, Sparkles } from 'lucide-react'
 import { SITE_CONFIG, type TaskKey } from '@/lib/site-config'
 import { siteContent } from '@/config/site.content'
 import { getFactoryState } from '@/design/factory/get-factory-state'
@@ -27,12 +27,11 @@ const footerLinks = {
   company: [
     { name: 'About', href: '/about' },
     { name: 'Careers', href: '/careers' },
-    { name: 'Press', href: '/press' },
+    { name: 'Contact Us', href: '/contact' },
   ],
   resources: [
     { name: 'Help Center', href: '/help' },
     { name: 'Community', href: '/community' },
-    { name: 'Developers', href: '/developers' },
     { name: 'Status', href: '/status' },
   ],
   legal: [
@@ -42,12 +41,6 @@ const footerLinks = {
     { name: 'Licenses', href: '/licenses' },
   ],
 }
-
-const socialLinks = [
-  { name: 'Twitter', href: 'https://twitter.com', icon: Twitter },
-  { name: 'GitHub', href: 'https://github.com', icon: Github },
-  { name: 'LinkedIn', href: 'https://linkedin.com', icon: Linkedin },
-]
 
 export function Footer() {
   if (FOOTER_OVERRIDE_ENABLED) {
@@ -120,13 +113,10 @@ export function Footer() {
               </div>
               <div>
                 <h3 className="text-xs font-semibold uppercase tracking-[0.24em] text-slate-400">Connect</h3>
-                <div className="mt-4 flex gap-3">
-                  {socialLinks.map((item) => (
-                    <Link key={item.name} href={item.href} target="_blank" rel="noopener noreferrer" className="rounded-md border border-white/10 bg-white/8 p-2.5 text-slate-200 hover:bg-white/12 hover:text-white">
-                      <item.icon className="h-4 w-4" />
-                    </Link>
-                  ))}
-                </div>
+                <ul className="mt-4 space-y-3 text-sm text-slate-200">
+                  <li><Link href="/contact" className="hover:text-white">Contact Us</Link></li>
+                  <li><Link href="/help" className="hover:text-white">Help Center</Link></li>
+                </ul>
               </div>
             </div>
           </div>
@@ -188,19 +178,11 @@ export function Footer() {
                   </li>
                 ))}
               </ul>
-              <div className="mt-8 flex gap-3">
-                {socialLinks.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="rounded-md border border-slate-200 p-2.5 text-slate-600 hover:border-[#1d4ed8]/30 hover:text-[#1d4ed8]"
-                  >
-                    <item.icon className="h-4 w-4" />
-                  </Link>
-                ))}
-              </div>
+              <ul className="mt-8 space-y-3 text-sm font-medium">
+                <li>
+                  <Link href="/help" className="text-slate-700 hover:text-[#1d4ed8]">Help Center</Link>
+                </li>
+              </ul>
             </div>
           </div>
           <div className="mt-12 border-t border-slate-200 pt-6 text-center text-sm text-slate-500 sm:text-left">

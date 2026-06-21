@@ -1,8 +1,6 @@
 import Link from 'next/link'
 import { PageShell } from '@/components/shared/page-shell'
 import { Button } from '@/components/ui/button'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { mockTeamMembers } from '@/data/mock-data'
 import { SITE_CONFIG } from '@/lib/site-config'
 
 const highlights = [
@@ -14,7 +12,7 @@ const highlights = [
 const values = [
   {
     title: 'Edited for clarity',
-    description: 'Every piece is structured for deep reading—clear hierarchy, generous spacing, and typography that respects long sessions.',
+    description: 'Every piece is structured for deep reading, with clear hierarchy, generous spacing, and typography that supports long sessions.',
   },
   {
     title: 'Built for focus',
@@ -30,10 +28,10 @@ export default function AboutPage() {
   return (
     <PageShell
       title={`About ${SITE_CONFIG.name}`}
-      description={`${SITE_CONFIG.name} is an editorial publication for essays, reporting, and long-form stories—presented in a clean, rectangular layout.`}
+      description={`${SITE_CONFIG.name} is an editorial publication for essays, reporting, and long-form stories in a clean reading experience.`}
       actions={
         <Button asChild>
-          <Link href="/contact">Contact</Link>
+          <Link href="/contact">Contact Us</Link>
         </Button>
       }
     >
@@ -42,7 +40,7 @@ export default function AboutPage() {
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[#b45309]">Our story</p>
           <h2 className="mt-3 text-2xl font-semibold tracking-tight text-slate-900">One home for serious reading.</h2>
           <p className="mt-4 text-sm leading-7 text-slate-600">
-            {SITE_CONFIG.name} publishes articles and features for readers who want depth. We prioritize reporting, essays, and explainers—not generic feeds or
+            {SITE_CONFIG.name} publishes articles and features for readers who want depth. We prioritize reporting, essays, and explainers, not generic feeds or
             mixed-purpose directories.
           </p>
           <div className="mt-8 grid gap-3 sm:grid-cols-3">
@@ -63,7 +61,6 @@ export default function AboutPage() {
           ))}
         </div>
       </div>
-
-          </PageShell>
+    </PageShell>
   )
 }

@@ -530,6 +530,46 @@ function CurationHome({ primaryTask, bookmarkPosts, profilePosts, articlePosts }
   )
 }
 
+function UniversalFeaturedArticleSection({ articlePosts }: { articlePosts: SitePost[] }) {
+  const featured = articlePosts[0]
+  const more = articlePosts.slice(1, 4)
+  if (!featured) return null
+
+  return (
+    <section className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+      <div className="mb-8 flex items-end justify-between gap-4 border-b border-border pb-6">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-muted-foreground">Featured article</p>
+          <h2 className="mt-2 text-3xl font-semibold tracking-[-0.04em]">From the newsroom</h2>
+        </div>
+        <Link href="/articles" className="text-sm font-semibold text-primary hover:opacity-80">View all articles</Link>
+      </div>
+
+      <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
+        <Link href={`/articles/${featured.slug}`} className="overflow-hidden rounded-lg border border-border bg-card">
+          <div className="relative aspect-[16/9] overflow-hidden">
+            <ContentImage src={getPostImage(featured)} alt={featured.title} fill className="object-cover" />
+          </div>
+          <div className="p-6">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground">Featured</p>
+            <h3 className="mt-2 text-2xl font-semibold tracking-[-0.02em]">{featured.title}</h3>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">{featured.summary || 'Read the latest featured story.'}</p>
+          </div>
+        </Link>
+
+        <div className="grid gap-4">
+          {more.map((post) => (
+            <Link key={post.id} href={`/articles/${post.slug}`} className="rounded-lg border border-border bg-card p-5">
+              <h4 className="text-lg font-semibold">{post.title}</h4>
+              <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{post.summary || 'Open article'}</p>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 export default async function HomePage() {
   if (HOME_PAGE_OVERRIDE_ENABLED) {
     return <HomePageOverride />
@@ -542,7 +582,7 @@ export default async function HomePage() {
     await Promise.all(
       enabledTasks.map(async (task) => ({
         task,
-        posts: await fetchTaskPosts(task.key, 8, { allowMockFallback: false, fresh: true }),
+        posts: await fetchTaskPosts(task.key, 8, { allowMockFallback: true, fresh: true }),
       }))
     )
   ).filter(({ posts }) => posts.length)
@@ -601,6 +641,7 @@ export default async function HomePage() {
       {productKind === 'curation' ? (
         <CurationHome primaryTask={primaryTask} bookmarkPosts={bookmarkPosts} profilePosts={profilePosts} articlePosts={articlePosts} />
       ) : null}
+      <UniversalFeaturedArticleSection articlePosts={articlePosts} />
       <Footer />
     </div>
   )

@@ -2,14 +2,7 @@ import Link from "next/link";
 import { PageShell } from "@/components/shared/page-shell";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { SITE_CONFIG } from "@/lib/site-config";
-
-const roles = [
-  { title: "Product Designer", location: "Remote", type: "Full-time", level: "Mid" },
-  { title: "Frontend Engineer", location: "New York, NY", type: "Full-time", level: "Senior" },
-  { title: "Community Lead", location: "Remote", type: "Part-time", level: "Mid" },
-];
 
 const benefits = [
   "Flexible schedules and remote-first culture",
@@ -30,23 +23,18 @@ export default function CareersPage() {
       }
     >
       <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-        <div className="space-y-4">
-          {roles.map((role) => (
-            <Card key={role.title} className="border-border bg-card">
-              <CardContent className="p-6">
-                <div className="flex flex-wrap items-center gap-2">
-                  <Badge variant="secondary">{role.level}</Badge>
-                  <Badge variant="outline">{role.type}</Badge>
-                </div>
-                <h2 className="mt-3 text-lg font-semibold text-foreground">{role.title}</h2>
-                <p className="mt-1 text-sm text-muted-foreground">{role.location}</p>
-                <Button variant="outline" className="mt-4" asChild>
-                  <Link href="/contact">View Role</Link>
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+        <Card className="border-border bg-card">
+          <CardContent className="p-6">
+            <h2 className="text-2xl font-semibold text-foreground">No current openings</h2>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">
+              We are not hiring for open roles right now. If you would like to work with {SITE_CONFIG.name},
+              please send your details and query through the contact page.
+            </p>
+            <Button className="mt-5" asChild>
+              <Link href="/contact">Send Details on Contact Page</Link>
+            </Button>
+          </CardContent>
+        </Card>
         <Card className="border-border bg-card">
           <CardContent className="p-6">
             <h3 className="text-lg font-semibold text-foreground">Why {SITE_CONFIG.name}</h3>

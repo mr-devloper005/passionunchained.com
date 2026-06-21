@@ -5,7 +5,6 @@ import { SITE_CONFIG } from '@/lib/site-config'
 import { getFactoryState } from '@/design/factory/get-factory-state'
 import { getProductKind } from '@/design/factory/get-product-kind'
 import { CONTACT_PAGE_OVERRIDE_ENABLED, ContactPageOverride } from '@/overrides/contact-page'
-import { Button } from '@/components/ui/button'
 import { ContactLeadForm } from "@/components/shared/contact-lead-form";
 
 type ContactTone = {
@@ -102,29 +101,6 @@ export default function ContactPage() {
               { icon: Sparkles, title: 'Curator support', body: 'Need help organizing shelves, collections, or profile-connected boards?' },
             ]
 
-  const emailContacts = [
-    { 
-      email: process.env.NEXT_PUBLIC_CONTACT_EMAIL_GENERAL || 'contact@passionunchained.com', 
-      label: 'General Inquiries',
-      description: 'For general questions and information'
-    },
-    { 
-      email: process.env.NEXT_PUBLIC_CONTACT_EMAIL_EDITORIAL || 'editorial@passionunchained.com', 
-      label: 'Editorial',
-      description: 'Submissions, content, and editorial matters'
-    },
-    { 
-      email: process.env.NEXT_PUBLIC_CONTACT_EMAIL_PARTNERSHIPS || 'partnerships@passionunchained.com', 
-      label: 'Partnerships',
-      description: 'Business partnerships and collaborations'
-    },
-    { 
-      email: process.env.NEXT_PUBLIC_CONTACT_EMAIL_SUPPORT || 'support@passionunchained.com', 
-      label: 'Technical Support',
-      description: 'Technical issues and account support'
-    },
-  ]
-
   return (
     <div className={`min-h-screen ${tone.shell}`}>
       <NavbarShell />
@@ -181,34 +157,6 @@ export default function ContactPage() {
           </div>
         </section>
 
-        <section className="mt-12">
-          <div className="text-center">
-            <p className={`text-xs font-bold uppercase tracking-[0.24em] ${isEditorial ? 'text-[#b45309]' : 'opacity-70'}`}>Or email us directly</p>
-            <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em]">Choose the right contact</h2>
-            <p className={`mt-4 max-w-2xl mx-auto text-sm leading-relaxed ${tone.muted}`}>
-              For faster responses, email the specific department that matches your inquiry.
-            </p>
-          </div>
-          
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {emailContacts.map((contact) => (
-              <div key={contact.email} className={`rounded-lg border border-slate-200/80 p-5 ${tone.soft}`}>
-                <Mail className={`h-5 w-5 ${isEditorial ? 'text-[#1d4ed8]' : ''}`} />
-                <h3 className="mt-3 text-lg font-semibold">{contact.label}</h3>
-                <p className={`mt-2 text-sm leading-6 ${tone.muted}`}>{contact.description}</p>
-                <Button 
-                  asChild
-                  className={`mt-4 w-full ${tone.action}`}
-                  size="sm"
-                >
-                  <a href={`mailto:${contact.email}`}>
-                    {contact.email}
-                  </a>
-                </Button>
-              </div>
-            ))}
-          </div>
-        </section>
       </main>
       <Footer />
     </div>
